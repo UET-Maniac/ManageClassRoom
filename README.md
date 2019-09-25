@@ -1,5 +1,5 @@
 # Mục Lục
-1. [Chương 1: Tổng quan về Phần Mềm](#introduction)
+1. [Chương 1: Tổng quan về phần mềm](#introduction)
 2. [Mô tả chức năng có trong phần mềm](#paragraph1)
     1. [Bảng chức năng](#subparagraph1)
 
