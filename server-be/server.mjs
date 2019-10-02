@@ -3,8 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import morgan from 'morgan'
 import path from 'path'
-import { config } from "./config.mjs";
-console.log(config)
+import config from "./config/config.mjs";
 
 const app = express()
 const __dirname = path.resolve(path.dirname(''))
@@ -27,5 +26,5 @@ app.use((err, req, res) => {
 })
 
 
-
-app.listen(5555, () => console.log(`Server running at magic port 5555`))
+const port = config.app.port
+app.listen(port, () => console.log(`Server running at magic port ${port}`))
