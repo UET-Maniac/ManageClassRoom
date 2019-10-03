@@ -6,6 +6,10 @@
 ## Chương 1: Tổng Quan <a name="introduction"></a>
 Hiện nay, do nhu cầu quản lý và sắp xếp lịch trình ngày càng cần thiết trong cuộc sống. Việc lên lịch giúp mọi người có thể quản lý, sắp xếp công việc một cách hợp lý, đúng quy trình. Nhất là trong môi trường có tính tổ chức cao như trường học, công sở. Nhằm phục vụ nhu cầu đó, nhóm đã phát triển phần mềm “quản lý sắp xếp và cho mượn phòng học”. Phần mềm có tác dụng giúp đỡ trường học trong khâu quản lý và sắp xếp phòng học nhằm phục vụ mục đích học tập, giao lưu và sinh hoạt lớp của sinh viên. Phần mềm của nhóm gồm có hai phần: Sắp xếp phòng học theo lịch học và danh sách kèm theo thông tin phòng học có sẵn và xử lý các đơn yêu cầu mượn phòng học của sinh viên.
 
+### Công nghệ sử dụng
+![alt text](https://icon-library.net/images/js-icon/js-icon-13.jpg)
+
+
 ## Chương 2: Mô tả chức năng <a name="paragraph1"></a>
 Phần mềm “quản lý sắp xếp và cho mượn phòng học” của nhóm gồm có các chức năng được mô tả trong bảng sau:
 
@@ -21,3 +25,4 @@ Phần mềm “quản lý sắp xếp và cho mượn phòng học” của nh�
 Trong đó:
 -   	Đối tượng Nhân viên phòng đào tạo: nhân viên của trường học, có nhiều chức năng, nhiệm vụ khác nhau. 
       Tuy nhiên tác dụng chính là thông báo đến giảng viên và sinh viên về lịch học hay lịch mượn phòng.
+
