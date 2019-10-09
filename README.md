@@ -21,8 +21,11 @@ Phần mềm “quản lý sắp xếp và cho mượn phòng học” của nh�
 |3|Xem lịch học|Sinh viên|Sinh viên có thể lên trang phòng đào tạo cung cấp để xem lịch học của bản thân. Trong đó, phòng đào tạo cung cấp các thông tin như: mã môn học, tên môn học, địa điểm, thời gian, sĩ số, tên giảng viên,…|
 |4|Gửi yêu cầu mượn phòng học|Sinh viên|Sinh viên lên hệ thống, điền thông tin và tìm khoảng thời gian và phòng còn trống thích hợp. Sau đó đợi xác nhận của phòng đào tạo.|
 |5|Xem lịch dạy|Giảng viên|Giảng viên truy cập trang web phòng đào tạo cung cấp để xem lịch dạy của bản thân. Trong đó, phòng đào tạo cung cấp các thông tin như: mã môn học, tên môn học, thời gian, địa điểm, danh sách sinh viên.|
- 
-Trong đó:
--   	Đối tượng Nhân viên phòng đào tạo: nhân viên của trường học, có nhiều chức năng, nhiệm vụ khác nhau. 
-      Tuy nhiên tác dụng chính là thông báo đến giảng viên và sinh viên về lịch học hay lịch mượn phòng.
+|6|Quản lý các đối tượng chung|Nhân viên phòng đào tạo|Quản lý các đối tượng: phòng học, lớp môn học, tài khoản người dùng|
+|7|Tự động hóa việc xếp lịch|Nhân viên phòng đào tạo|Sử dụng thông tin từ các đối tượng phòng học, lớp môn học để xếp lịch lớp và phòng học|
+
+Các Actors:
+-   	Nhân viên phòng đào tạo: nhân viên của trường đại học
+-       Sinh viên: Sinh viên thuộc quản lý trường đại học
+-       Giảng viên: Giảng viên dạy học trong trường
 
