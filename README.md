@@ -33,3 +33,6 @@ Các Actors:
 -       Sinh viên: Sinh viên thuộc quản lý trường đại học
 -       Giảng viên: Giảng viên dạy học trong trường
 
+### Mô hình Cơ sở dữ liệu <a name="subparagraph2"></a>
+![Alt ER](relative/path/to/img.jpg?raw=true "Title")
+
