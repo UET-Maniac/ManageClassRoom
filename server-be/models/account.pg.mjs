@@ -9,6 +9,7 @@
 import Sequelize from "sequelize"
 import db from '../config/database.mjs'
 import bcrypt from 'bcrypt'
+import constant from '../config/constant.mjs'
 
 const Account = db.define('accounts', {
     username: {
@@ -40,8 +41,13 @@ const Account = db.define('accounts', {
 }, {
     hooks: {
         beforeCreate: (account, options) => {
-            const salt = bcrypt.genSaltSync(10);
-            const hash = bcrypt.hashSync(account.password, salt);
+            // const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(account.password, constant.salt);
+            account.password = hash
+            return account
+        },
+        beforeUpdate: (account, options) => {
+            const hash = bcrypt.hashSync(account.password, constant.salt);
             account.password = hash
             return account
         }

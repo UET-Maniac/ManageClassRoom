@@ -9,7 +9,6 @@ const create = (req, res) => {
     //   }
 
     AccountHelper.create(req.body).then(result => {
-        console.log(result)
         if(result.err) {
             console.error(result.err)
             res.json({
@@ -28,7 +27,79 @@ const create = (req, res) => {
 
 }
 
+const getAll = (req, res) => {
+
+    AccountHelper.retrieveAll().then(result => {
+        if(result.err) {
+            console.log(result.err)
+            res.json({
+                success: false,
+                data: undefined,
+                message: "not ok"
+            })
+            return
+        }
+        res.json({
+            success: true,
+            data: result.accounts,
+            message: "ok"
+        })
+     })
+}
+
+const update = (req, res) => {
+    
+    let id = parseInt(req.params.id)
+    let infoUpdate = req.body
+
+    AccountHelper.update(id, infoUpdate).then(result => {
+        if(result.err) {
+            console.log(result.err)
+            res.json({
+                success: false,
+                data: undefined,
+                message: "not ok"
+            })
+            return
+        }
+        res.json({
+            success: true,
+            data: undefined,
+            message: "ok"
+        })
+    })
+}
+
+const removeByID = (req, res) => {
+    
+    let id = parseInt(req.params.id)
+    AccountHelper.remove(id).then(result => {
+        if(result.err) {
+            console.log(result.err)
+            res.json({
+                success: false,
+                data: undefined,
+                message: "not ok"
+            })
+        }
+        res.json({
+            success: true,
+            data: undefined,
+            message: "ok"
+        })
+    })
+}
+
+const importAccounts = (req, res) => {
+    // Implement me
+}
+
 const AccountController = {
     create,
+    update,
+    getAll,
+    removeByID,
+    importAccounts
 }
+
 export default AccountController
