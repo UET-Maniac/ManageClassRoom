@@ -34,5 +34,5 @@ Các Actors:
 -       Giảng viên: Giảng viên dạy học trong trường
 
 ### Mô hình Cơ sở dữ liệu <a name="subparagraph2"></a>
-![Alt ER](relative/path/to/img.jpg?raw=true "Title")
+![Alt ER](documents/ManageRoomClass.png "Database Model")
 
