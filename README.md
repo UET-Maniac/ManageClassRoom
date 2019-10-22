@@ -1,12 +1,15 @@
 # Mục Lục
-1. [Chương 1: Tổng quan về phần mềm](#introduction)
-2. [Mô tả chức năng có trong phần mềm](#paragraph1)
-    1. [Bảng chức năng](#subparagraph1)
+1. [Phần 1: Tổng quan về phần mềm](#introduction)
+    1. [Công nghệ sử dụng](#tech-used)
+2. [Phần 2: Mô tả chức năng có trong phần mềm](#paragraph1)
+    1. [Các Actors](#list-actors)
+    2. [Bảng chức năng](#function-table)
+    3. [Mô hình Cơ sở dữ liệu](#er-model)
 
 ## Phần 1: Tổng Quan <a name="introduction"></a>
 Hiện nay, do nhu cầu quản lý và sắp xếp lịch trình ngày càng cần thiết trong cuộc sống. Việc lên lịch giúp mọi người có thể quản lý, sắp xếp công việc một cách hợp lý, đúng quy trình. Nhất là trong môi trường có tính tổ chức cao như trường học, công sở. Nhằm phục vụ nhu cầu đó, nhóm đã phát triển phần mềm “quản lý sắp xếp và cho mượn phòng học”. Phần mềm có tác dụng giúp đỡ trường học trong khâu quản lý và sắp xếp phòng học nhằm phục vụ mục đích học tập, giao lưu và sinh hoạt lớp của sinh viên. Phần mềm của nhóm gồm có hai phần: Sắp xếp phòng học theo lịch học và danh sách kèm theo thông tin phòng học có sẵn và xử lý các đơn yêu cầu mượn phòng học của sinh viên.
 
-### Công nghệ sử dụng
+### Công nghệ sử dụng <a name="tech-use"></a>
 - Server backend: Nodejs + express framework
 - Database: Postgres
 - App Frontend: Reactjs
@@ -24,7 +27,7 @@ Phần mềm “quản lý sắp xếp và cho mượn phòng học” của nh�
 | 2   | Giảng viên    | GV       | Giảng viên dạy học trong trường            |
 | 3   | Nhân viên PĐT | NV       | Nhân viên Phòng đào tạo                    |
 
-### Bảng chức năng <a name="subparagraph2"></a>
+### Bảng chức năng <a name="function-table"></a>
 | STT | Danh mục                  | Mã                                        | Tên                             | Actor                                                      | Mô tả                                                                                                    |
 |-----|---------------------------|-------------------------------------------|---------------------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | 1   | Quản lý phòng học         | Fn001                                     | Thêm danh sách phòng học        | NV                                                         | Thêm vào hệ thống danh sách các phòng học mới                                                            |
@@ -67,6 +70,6 @@ Phần mềm “quản lý sắp xếp và cho mượn phòng học” của nh�
 
 
 
-### Mô hình Cơ sở dữ liệu <a name="subparagraph2"></a>
+### Mô hình Cơ sở dữ liệu <a name="er-model"></a>
 ![Alt ER](documents/ManageRoomClass.png "Database Model")
 
