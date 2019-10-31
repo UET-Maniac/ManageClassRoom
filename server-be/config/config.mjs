@@ -7,7 +7,7 @@ const dev = {
         password: process.env.DEV_DB_PASSWORD || '0000',
         host: process.env.DEV_DB_HOST || 'localhost',
         port: parseInt(process.env.DEV_DB_PORT) || 27017,
-        name: process.env.DEV_DB_NAME || 'nutri_intel'
+        name: process.env.DEV_DB_NAME || 'class_room_manager'
     }
 };
 
