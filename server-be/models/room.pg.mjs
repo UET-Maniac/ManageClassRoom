@@ -11,7 +11,7 @@ import Sequelize from 'sequelize'
 import db from '../config/database.mjs'
 
 const Room = db.define('rooms', {
-    name: {
+    code: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
