@@ -1,7 +1,7 @@
 /**
  * Table Schema: Room
  * ID       auto
- * Name     string
+ * Code     string
  * Type     string(enum)
  * Position string
  * Capacity number
