@@ -3,8 +3,8 @@
  * ID               auto
  * Code             string
  * StudentNumber    number
- * ClassSectionID   foreignKey
- * RoomID           foreignKey
+ * ClassSectionCode foreignKey
+ * RoomCode         foreignKey
  * Semester         string
  * Day              number(enum: Day of week)
  * StartTime        number
@@ -19,40 +19,98 @@ import db from '../config/database.mjs'
 
 const Class = db.define('classes', {
     code: {
-
-    },
-    name: {
-
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: false,
+        validate: {
+            notEmpty: true
+        }
     },
     studentNumber: {
-
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false
+        }
     },
     semester: {
-
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: false,
+        validate: {
+            notEmpty: true
+        }
     },
     day: {
-
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false,
+            isIn: [['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']]
+        }
     },
     startTime: {
-
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false,
+            min: 6,
+            max: 22
+        }
     },
     hourNumber: {
-
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: false,
+        validate: {
+            notEmpty: true,
+            min: 1,
+            max: 10
+        }
     },
     students: {
-
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false
+        }
     },
     lecturer: {
-
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false,
+        }
     },
     requireRoom: {
-
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: false,
+        validate: {
+            notEmpty: true,
+            isIn: [['theory', 'practise']]
+        }
     },
-    roomID: {
-
+    roomCode: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false,
+        }
     },
-    classSectionID: {
-
+    classSectionCode: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false,
+        }
     }
 })
 
