@@ -113,7 +113,7 @@ export default function Layout(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Nutri Intel
+            Manage Class Room
           </Typography>
         </Toolbar>
       </AppBar>
@@ -145,10 +145,34 @@ export default function Layout(props) {
               <ListItemText primary="Home" />
             </ListItem>
           </NavLink>
+          <Link to='/room-manager'>
+            <ListItem button>
+              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemText primary="Room" />
+            </ListItem>
+          </Link>
+          <Link to='/class-section-manager'>
+            <ListItem button>
+              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemText primary="Class Section" />
+            </ListItem>
+          </Link>
+          <Link to='/class-manager'>
+            <ListItem button>
+              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemText primary="Class" />
+            </ListItem>
+          </Link>
+          <Link to='/request-manager'>
+            <ListItem button>
+              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemText primary="Request" />
+            </ListItem>
+          </Link>
           <Link to='/account-manager'>
             <ListItem button>
               <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Manage Account" />
+              <ListItemText primary="Account" />
             </ListItem>
           </Link>
           <Link to='/about'>
