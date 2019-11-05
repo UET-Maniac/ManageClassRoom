@@ -42,7 +42,6 @@ const getAll = (req, res) => {
 const update = (req, res) => {
     let id = parseInt(req.params.id)
     let infoUpdate = req.body
-    console.log(infoUpdate)
     ClassSectionHelper.update(id, infoUpdate).then(result => {
         if(result.err) {
             console.error(result.err)
