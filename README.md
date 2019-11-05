@@ -5,7 +5,8 @@
     1. [Các Actors](#list-actors)
     2. [Bảng chức năng](#function-table)
     3. [Mô hình Cơ sở dữ liệu](#er-model)
-    4. [Phác thảo giao diện](#project-img)    
+    4. [Mô hình nghiệp vụ] (#business-model)
+    5. [Phác thảo giao diện](#project-img)    
 
 ## Phần 1: Tổng Quan <a name="introduction"></a>
 Hiện nay, do nhu cầu quản lý và sắp xếp lịch trình ngày càng cần thiết trong cuộc sống. Việc lên lịch giúp mọi người có thể quản lý, sắp xếp công việc một cách hợp lý, đúng quy trình. Nhất là trong môi trường có tính tổ chức cao như trường học, công sở. Nhằm phục vụ nhu cầu đó, nhóm đã phát triển phần mềm “quản lý sắp xếp và cho mượn phòng học”. Phần mềm có tác dụng giúp đỡ trường học trong khâu quản lý và sắp xếp phòng học nhằm phục vụ mục đích học tập, giao lưu và sinh hoạt lớp của sinh viên. Phần mềm của nhóm gồm có hai phần: Sắp xếp phòng học theo lịch học và danh sách kèm theo thông tin phòng học có sẵn và xử lý các đơn yêu cầu mượn phòng học của sinh viên.
@@ -73,6 +74,29 @@ Phần mềm “quản lý sắp xếp và cho mượn phòng học” của nh�
 
 ### Mô hình Cơ sở dữ liệu <a name="er-model"></a>
 ![Alt ER](documents/ManageRoomClass.png "Database Model")
+
+### Mô hình ngiệp vụ
+
+Mượn phòng:
+- Bước 1: sinh viên đăng nhập vào hệ thống
+- Bước 2: sinh viên tạo đơn mượn phòng, điền đầy đủ các thông tin: mục đích , loại phòng, sĩ số , thời gian
+- Bước 3: gửi đơn để hệ thống xếp phòng và gửi yêu cầu cho nhân viên phòng đào tạo  
+- Bước 4: nhân viên phòng đào tạo thực hiện chấp nhận đơn
+- Bước 5: hệ thống gửi lại thông báo cho sinh viên gửi yêu cầu, cập nhật lại tình trạng phòng 
+
+Sinh viên hủy đơn yêu cầu:
+- Bước 1: sinh viên đăng nhập vào hệ thống
+- Bước 2: xem danh sách các yêu cầu đã tạo
+- Bước 3: thực hiện hủy đơn( đơn đó trong tình trạng đang chờ duyệt)
+
+Nhân viên phòng đào tạo hủy đơn yêu cầu:
+- Bước 1: sinh viên đăng nhập vào hệ thống
+- Bước 2: sinh viên tạo đơn mượn phòng, điền đầy đủ các thông tin: mục đích , loại phòng, sĩ số , thời gian
+- Bước 3: gửi đơn để hệ thống xếp phòng và gửi yêu cầu cho nhân viên phòng đào tạo  
+- Bước 4: nhân viên phòng đào tạo thực hiện hủy đơn
+- Bước 5: hệ thống gửi lại thông báo cho sinh viên gửi yêu cầu
+
+
 
 ### Phác thảo giao diện <a name="project-img"></a>
 ![Alt text](/documents/0259d5fe76cd9093c9dc.jpg?raw=true "Optional Title")

@@ -12,6 +12,7 @@ const create = (req, res) => {
             })
             return
         }
+        console.log(result.createdRoom)
         res.json({
             success: true,
             data: result.createdRoom,
@@ -31,6 +32,7 @@ const getAll = (req, res) => {
             })
             return
         }
+        console.log(result.rooms)
         res.json({
             data: result.rooms,
             success: true,
@@ -53,6 +55,7 @@ const update = (req, res) => {
             })
             return
         }
+        console.log('ok')
         res.json({
             success: true,
             data: null,
@@ -73,6 +76,7 @@ const removeByID = (req, res) => {
             })
             return
         }
+        console.log('ok')
         res.json({
             success: true,
             data: null,
