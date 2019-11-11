@@ -6,7 +6,8 @@ const create = async (data) => {
         createdAccount = await Account.create({
             username: data.username,
             password: data.password,
-            role: data.role
+            role: data.role,
+            name: data.name
         })
         
         return {createdAccount, err: undefined}
@@ -60,7 +61,18 @@ const remove = async (id) => {
 }
 
 const createMulti = async (accounts) => {
-    // Implement me
+    let createdAccounts = null;
+    let err = null;
+
+    try {
+        let returnValue = await Account.bulkCreate(accounts, 
+            { returning: true});
+        createdAccounts = returnValue;
+    } catch(error) {
+        err = error;
+    }
+
+    return {err, createdAccounts};
 }
 
 const AccountHelper = {

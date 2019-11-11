@@ -6,6 +6,7 @@ import path from 'path'
 import config from "./config/config.mjs"
 import connect from './config/connect_database.mjs'
 import Router from './router/index.mjs'
+import fileUpload from 'express-fileupload'
 
 const app = express()
 const __dirname = path.resolve(path.dirname(''))
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(cors())
 app.use(morgan('dev'))
+app.use(fileUpload());
 app.use('/static', express.static(path.join(__dirname, '/public')))
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

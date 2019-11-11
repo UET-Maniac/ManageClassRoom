@@ -1,4 +1,6 @@
 import AccountHelper from '../helpers/account.helper.mjs'
+import fs from 'fs'
+import XLSX from 'xlsx'
 
 const create = (req, res) => {
     // if (JSON.stringify(req.body) == "{}") {
@@ -90,8 +92,150 @@ const removeByID = (req, res) => {
     })
 }
 
-const importAccounts = (req, res) => {
-    // Implement me
+const importStudentAccounts = (req, res) => {
+    if(!req.files.file) {
+        res.status(400).json({
+            status: false,
+            message: 'None file',
+            data: undefined
+        })
+        return
+    }
+
+    let file = req.files.file;
+    let fileName = req.files.file.name;
+
+
+
+    file.mv('./uploads/' + fileName, (err) => {
+        if(err) {
+            console.log('error saving');
+            res.json({
+                status: false,
+                message: 'Error file',
+                data: undefined
+            })
+            return
+        } else {
+            console.log('Saved: ./uploads/' + fileName);
+            try {
+                let workbook = XLSX.readFile('./uploads/' + fileName)
+                var sheet_name_list = workbook.SheetNames;
+                let data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]], {header:["id","code","name","dob"]})
+                data.shift()
+    
+                let accounts = []
+                data.forEach(item => {
+                   accounts.push({
+                       username: item.code,
+                       password: item.code,
+                       role: 'student',
+                       name: item.name
+                   }) 
+                });
+    
+                // Remove file when read success
+                try{
+                    fs.unlinkSync('./uploads/' + fileName);
+                } catch (e) {
+                    console.log("error delete file");
+                }
+    
+                AccountHelper.createMulti(accounts).then(result => {
+
+                    res.json({
+                        success: true, 
+                        message: "ok",
+                        fault: result.err,
+                        data: result.createdAccounts
+                    })
+
+                    return
+                })
+            } catch (error) {
+                console.log(error)
+                res.json({
+                    success: false,
+                    message: "Server can't read file",
+                    data: undefined
+                })
+                return
+            }
+        }
+    });
+}
+
+const importLecturerAccounts = (req, res) => {
+    if(!req.files.file) {
+        res.status(400).json({
+            status: false,
+            message: 'None file',
+            data: undefined
+        })
+        return
+    }
+
+    let file = req.files.file;
+    let fileName = req.files.file.name;
+
+
+
+    file.mv('./uploads/' + fileName, (err) => {
+        if(err) {
+            console.log('error saving');
+            res.json({
+                status: false,
+                message: 'Error file',
+                data: undefined
+            })
+            return
+        } else {
+            console.log('Saved: ./uploads/' + fileName);
+            try {
+                let workbook = XLSX.readFile('./uploads/' + fileName)
+                var sheet_name_list = workbook.SheetNames;
+                let data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]], {header:["id","code","name"]})
+                data.shift()
+    
+                let accounts = []
+                data.forEach(item => {
+                   accounts.push({
+                       username: item.code,
+                       password: item.code,
+                       role: 'lecturer',
+                       name: item.name
+                   }) 
+                });
+
+                // Remove file when read success
+                try{
+                    fs.unlinkSync('./uploads/' + fileName);
+                } catch (e) {
+                    console.log("error delete file");
+                }
+    
+                AccountHelper.createMulti(accounts).then(result => {
+
+                    res.json({
+                        success: true, 
+                        message: "ok",
+                        fault: result.err,
+                        data: result.createdAccounts
+                    })
+
+                    return
+                })
+            } catch (error) {
+                console.log(error)
+                res.json({
+                    success: false,
+                    message: "Server can't read file",
+                    data: undefined
+                })
+                return
+            }
+        }
+    });
 }
 
 const AccountController = {
@@ -99,7 +243,8 @@ const AccountController = {
     update,
     getAll,
     removeByID,
-    importAccounts
+    importStudentAccounts,
+    importLecturerAccounts
 }
 
 export default AccountController

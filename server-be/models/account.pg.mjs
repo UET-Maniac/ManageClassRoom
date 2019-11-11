@@ -4,6 +4,7 @@
  * Username     string
  * Password     string(hash string)
  * Role         string(enum)
+ * Name         string(name)
  */
 
 import Sequelize from "sequelize"
@@ -36,6 +37,14 @@ const Account = db.define('accounts', {
         validate: {
             notEmpty: true,
             isIn: [['student', 'lecturer', 'admin']]
+        }
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        unique: false,
+        validate: {
+            notEmpty: false
         }
     }
 }, {
