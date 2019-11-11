@@ -10,6 +10,14 @@ export default function accounts(state={accounts: []}, action) {
                 accounts: action.payload.accounts
             }
         }
+        case 'IMPORT_ACCOUNTS_SUCCEEDED': {
+            // console.log(action.payload)
+            if(action.payload.data) {
+                return {accounts: state.accounts.concat(action.payload.data)}
+            } else {
+                return {accounts: state.accounts}
+            }
+        }
         default: {
             return state
         }

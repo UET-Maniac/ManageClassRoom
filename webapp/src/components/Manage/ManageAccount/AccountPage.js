@@ -1,5 +1,6 @@
 import React, {Component, forwardRef} from 'react'
-import MaterialTable from 'material-table'
+import PropTypes from 'prop-types'
+import MaterialTable, {MTableToolbar} from 'material-table'
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';
@@ -16,7 +17,10 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import TextField from '@material-ui/core/TextField'
+import Chip from '@material-ui/core/Chip';
+import {withStyles, Box, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button} from '@material-ui/core'
 
+import UploadAccount from '../../More/UploadAccount';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -36,14 +40,23 @@ const tableIcons = {
     SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-  };
+};
+
+const styles = theme => ({
+    formControl: {
+        margin: theme.spacing(2),
+        marginLeft: theme.spacing(10),
+    }
+})
 
 class AccountPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
             error: null,
-            accounts: null
+            accounts: null,
+            openImport: false,
+            roleValue: "student"
         }
 
     }
@@ -55,22 +68,42 @@ class AccountPage extends Component {
             role: data.role,
         })
     }
+    
+    handleOpenImport = () => {
+        this.setState({openImport: true})
+    }
 
-    // onEditUnit = () => {
-    //     this.props.onEditUnit({
-    //         id: this.state.id,
-    //         nameVi: this.state.nameVi,
-    //         notation: this.state.notation,
-    //     })
-    // }
+    handleCloseImport = () => {
+        this.setState({openImport: false})
+    }
+
+    handleChange = event => {
+        this.setState({roleValue: event.target.value})
+    };
+
+    handleImportAccount = (data) => {
+        this.props.onImportAccounts(data)
+
+        this.setState({openImport: false})
+    }
 
     render() {
-        const {accounts} = this.props
+        const {accounts, classes} = this.props
+        const {openImport, roleValue} = this.state
+
         const columns = [
             {title: 'ID', field: 'id', editable: 'never', hidden: true},
             {title: 'Username', field: 'username', type: 'string'},
+            {title: 'Name', field: 'name', type: 'string'},
             {
                 title: 'Password', field: 'password', type: 'string',
+                editComponent: props => (
+                    <TextField
+                        type="password"
+                        value={props.value}
+                        onChange={e => props.onChange(e.target.value)}
+                    />
+                )
             },
             {
                 title: 'Role', field: 'role', type: 'string', 
@@ -84,9 +117,9 @@ class AccountPage extends Component {
                 item.tableData.editing = undefined
                 item.password = '*******'
             })
-            console.log(accounts)
-        }
+            // console.log(accounts)
 
+        }
 
         return (
             <div>
@@ -129,12 +162,56 @@ class AccountPage extends Component {
                     }}
                     options={{
                         actionsColumnIndex: -1
-                      }}
+                    }}
+                    components={{
+                        Toolbar: props => (
+                          <div>
+                            <MTableToolbar {...props} />
+                            <div style={{padding: '0px 10px'}}>
+                              <Chip 
+                                label="Import" 
+                                color="primary" 
+                                style={{marginRight: 5}}
+                                onClick={this.handleOpenImport}
+                                variant="outlined"
+                                />
+                             
+                            </div>
+                          </div>
+                        ),
+                    }}
+
                 />
             }
+
+            <Dialog 
+                onClose={this.handleCloseImport} 
+                aria-labelledby="simple-dialog-title" 
+                open={openImport}
+                fullWidth={"sm"}
+                maxWidth={"sm"}
+                >
+                <DialogTitle id="simple-dialog-title">Import Accounts</DialogTitle>
+                <FormControl component="fieldset" className={classes.formControl}>
+                    <FormLabel component="legend">Role</FormLabel>
+                    <RadioGroup aria-label="role" name="role" value={roleValue} onChange={this.handleChange}>
+                        <FormControlLabel value="student" control={<Radio />} label="Student" />
+                        <FormControlLabel value="lecturer" control={<Radio />} label="Lecturer" />
+                    </RadioGroup>
+                </FormControl>
+                <UploadAccount 
+                    roleValue={roleValue}
+                    onImportAccounts={this.handleImportAccount}    
+                />
+               
+            </Dialog>
             </div>
         )
     }
 }
 
-export default AccountPage
+AccountPage.propTypes = {
+    classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(AccountPage)

@@ -29,8 +29,31 @@ export function fetchAccountsSucceed(accounts) {
 export function fetchAccounts() {
     return dispatch => {
         api.fetchAccounts().then(res => {
-            console.log(res.data.data)
+            // console.log(res.data.data)
             dispatch(fetchAccountsSucceed(res.data.data))
         })
+    }
+}
+
+export function importAccountsSucceeded(data) {
+    return {
+        type: 'IMPORT_ACCOUNTS_SUCCEEDED',
+        payload: data
+    }
+}
+
+export function importAccounts({formData, role}) {
+    if(role === "student") {
+        return dispatch => {
+            api.importStudentAccount(formData).then(res => {
+                dispatch(importAccountsSucceeded(res.data))
+            })
+        }
+    } else {
+        return dispatch => {
+            api.importLecturerAccount(formData).then(res => {
+                dispatch(importAccountsSucceeded(res.data))
+            })
+        }
     }
 }
