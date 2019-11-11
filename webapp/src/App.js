@@ -5,7 +5,7 @@ import Layout from './components/Layout/Drawer'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import HomePage from './components/Home/HomePage'
 import AccountPage from './components/Manage/ManageAccount/AccountPage'
-import { fetchAccounts, createAccount } from './actions';
+import { fetchAccounts, createAccount, importAccounts } from './actions';
 import ClassPage from './components/Manage/ManagerClass/ClassPage'
 import ClassSectionPage from './components/Manage/ManageClassSection/ClassSectionPage'
 import RoomPage from './components/Manage/ManageRoom/RoomPage'
@@ -21,6 +21,10 @@ class App extends React.Component {
     this.props.dispatch(createAccount({username, password, role}))
   }
 
+  onImportAccounts = ({formData, role}) => {
+    this.props.dispatch(importAccounts({formData, role}))
+  }
+
   render() {
     return (
       <Router>
@@ -32,7 +36,8 @@ class App extends React.Component {
                 path="/account-manager" 
                 render={() => <AccountPage
                   accounts={this.props.accounts}
-                  onCreateAccount={this.onCreateAccount}    
+                  onCreateAccount={this.onCreateAccount}
+                  onImportAccounts={this.onImportAccounts}  
                 />}
               />
               <Route 
