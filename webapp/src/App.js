@@ -6,6 +6,10 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import HomePage from './components/Home/HomePage'
 import AccountPage from './components/Manage/ManageAccount/AccountPage'
 import { fetchAccounts, createAccount } from './actions';
+import ClassPage from './components/Manage/ManagerClass/ClassPage'
+import ClassSectionPage from './components/Manage/ManageClassSection/ClassSectionPage'
+import RoomPage from './components/Manage/ManageRoom/RoomPage'
+import RequestManagerPage from './components/Manage/ManageRequest/RequestManager'
 
 class App extends React.Component {
 
@@ -29,6 +33,26 @@ class App extends React.Component {
                 render={() => <AccountPage
                   accounts={this.props.accounts}
                   onCreateAccount={this.onCreateAccount}    
+                />}
+              />
+              <Route 
+                path="/class-manager" 
+                render={() => <ClassPage
+                />}
+              />
+              <Route 
+                path="/class-section-manager" 
+                render={() => <ClassSectionPage
+                />}
+              />
+              <Route 
+                path="/room-manager" 
+                render={() => <RoomPage
+                />}
+              />
+              <Route 
+                path="/request-manager" 
+                render={() => <RequestManagerPage
                 />}
               />
             </Switch>

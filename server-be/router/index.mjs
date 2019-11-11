@@ -12,7 +12,9 @@ Router.group('/account', r => {
     r.get('/accounts', AccountController.getAll)
     r.put('/:id', AccountController.update)
     r.delete('/:id', AccountController.removeByID)
-    // r.post('/import', AccountController.importAccount)
+    r.post('/import/students', AccountController.importStudentAccounts)
+    r.post('/import/lecturers', AccountController.importLecturerAccounts)
+
 })
 
 
