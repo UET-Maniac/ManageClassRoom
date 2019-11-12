@@ -5,11 +5,12 @@ import Layout from './components/Layout/Drawer'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import HomePage from './components/Home/HomePage'
 import AccountPage from './components/Manage/ManageAccount/AccountPage'
-import { fetchAccounts, createAccount, importAccounts } from './actions';
+import { fetchAccounts, createAccount, importAccounts, updateAccount } from './actions';
 import ClassPage from './components/Manage/ManagerClass/ClassPage'
 import ClassSectionPage from './components/Manage/ManageClassSection/ClassSectionPage'
 import RoomPage from './components/Manage/ManageRoom/RoomPage'
 import RequestManagerPage from './components/Manage/ManageRequest/RequestManager'
+
 
 class App extends React.Component {
 
@@ -25,7 +26,13 @@ class App extends React.Component {
     this.props.dispatch(importAccounts({formData, role}))
   }
 
+  onUpdateAccount = ({id, body}) => {
+    this.props.dispatch(updateAccount({id, body}))
+  }
+
   render() {
+    console.log(this.props)
+    
     return (
       <Router>
         <Layout>
@@ -37,7 +44,8 @@ class App extends React.Component {
                 render={() => <AccountPage
                   accounts={this.props.accounts}
                   onCreateAccount={this.onCreateAccount}
-                  onImportAccounts={this.onImportAccounts}  
+                  onImportAccounts={this.onImportAccounts} 
+                  onUpdateAccount={this.onUpdateAccount}
                 />}
               />
               <Route 
@@ -69,8 +77,10 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
-    accounts: state.accounts
+    accounts: state.accountReducer.accounts,
+    rooms: state.roomReducer.rooms,
   }
 }
 

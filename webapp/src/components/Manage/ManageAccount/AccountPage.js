@@ -18,8 +18,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import TextField from '@material-ui/core/TextField'
 import Chip from '@material-ui/core/Chip';
-import {withStyles, Box, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button} from '@material-ui/core'
-
+import {withStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl} from '@material-ui/core'
 import UploadAccount from '../../More/UploadAccount';
 
 const tableIcons = {
@@ -65,6 +64,7 @@ class AccountPage extends Component {
         this.props.onCreateAccount({
             username: data.username,
             password: data.password,
+            name: data.name,
             role: data.role,
         })
     }
@@ -87,7 +87,21 @@ class AccountPage extends Component {
         this.setState({openImport: false})
     }
 
+    onUpdateAccount = (newData, oldData) => {
+        console.log(newData)
+        this.props.onUpdateAccount({
+            id: newData.id,
+            body: {
+                username: newData.username,
+                role: newData.role,
+                password: newData.password,
+                name: newData.name
+            }
+        })
+    }
+
     render() {
+        console.log(this.props)
         const {accounts, classes} = this.props
         const {openImport, roleValue} = this.state
 
@@ -116,14 +130,14 @@ class AccountPage extends Component {
                 if(item.tableData !== undefined) 
                 item.tableData.editing = undefined
                 item.password = '*******'
+                return item
             })
             // console.log(accounts)
 
         }
-
         return (
             <div>
-                {accounts !== null && 
+                {(accounts !== null || accounts.length === 0) && 
                 <MaterialTable
                     icons={tableIcons}
                     title="Account Manager"
@@ -134,22 +148,15 @@ class AccountPage extends Component {
                             new Promise(resolve => {
                                 setTimeout(() =>  {
                                     this.onCreateAccount(newData)
-                                    // accounts.push(newData)
                                     resolve();
-                                    
                                 }, 600)
                             }),
                         onRowUpdate:  (newData, oldData) => 
                             new Promise(resolve => {
+                               
                                 setTimeout(() => {
-                                    // resolve()
-                                    // this.setState({
-                                    //     id: newData.id,
-                                    //     notation: newData.notation,
-                                    //     nameVi: newData.nameVi,
-                                    // })
-                                    // this.onEditUnit()
-
+                                    this.onUpdateAccount(newData, oldData)
+                                    resolve()
                                 }, 600)
                             }),
                         onRowDelete: oldData =>

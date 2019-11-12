@@ -4,14 +4,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware } from 'redux';
-import accounts from './reducers'
+import rootReducer from './reducers/index'
+// import createSagaMiddleware from 'redux­-saga'
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
 
-const store = createStore(accounts, composeWithDevTools(applyMiddleware(thunk)))
-
+// const store = createStore(accounts, composeWithDevTools(applyMiddleware(thunk)))
+const store = createStore(
+    rootReducer, 
+    composeWithDevTools(applyMiddleware(thunk))
+)
+console.log(store.getState())
 
 ReactDOM.render(
     <Provider store={store}>
