@@ -57,3 +57,28 @@ export function importAccounts({formData, role}) {
         }
     }
 }
+
+export function updateAccountSucceeded(data) {
+    return {
+        type: "UPDATE_ACCOUNT_SUCCEEDED",
+        payload: data
+    }
+}
+
+export function updateAccount({id, body}) {
+    return dispatch => {
+        api.updateAccount({id, body}).then(res => {
+            // console.log(body)
+            // console.log(res)
+            // ! flowing
+            dispatch(updateAccountSucceeded({
+                id: id,
+                param: body
+            }))
+        })
+    }
+}
+
+// export function deleteAccount({id}) {
+    
+// }
