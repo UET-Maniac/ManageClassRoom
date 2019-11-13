@@ -19,7 +19,6 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import TextField from '@material-ui/core/TextField'
 import Chip from '@material-ui/core/Chip';
 import {withStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button} from '@material-ui/core'
-import UploadAccount from '../../More/UploadAccount';
 import { lookup } from 'dns';
 
 const tableIcons = {
