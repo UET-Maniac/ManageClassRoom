@@ -3,6 +3,7 @@ import AccountController from '../controllers/account.controller.mjs'
 import 'express-group-routes'
 import RoomController from '../controllers/room.controller.mjs'
 import ClassSectionController from '../controllers/class_section.controller.mjs'
+import ClassController from '../controllers/class.controller.mjs'
 
 
 const Router = express.Router()
@@ -32,6 +33,11 @@ Router.group('/class-section', r => {
     r.put('/:id', ClassSectionController.update)
     r.delete('/:id', ClassSectionController.removeByID)
     r.post('/import', ClassSectionController.importClassSections)
+})
+
+
+Router.group('/class', r => {
+    r.post('/', ClassController.createNewClass)
 })
 
 export default Router

@@ -24,7 +24,7 @@ const create = async (data) => {
 
 const retriveAll = async () => {
     try {
-        const classes = await Class.findll()
+        const classes = await Class.findAll()
         return {classes, err: null}
     } catch (err) {
         return {err, classes: null}
