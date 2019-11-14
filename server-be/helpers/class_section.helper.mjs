@@ -60,7 +60,16 @@ const remove = async (id) => {
 }
 
 const createMulti = async (classSections) => {
-    //Implement me
+    let createdClassSections = null
+    let err = null 
+    try {
+        let returnValue = await ClassSection.bulkCreate(classSections, {returning: true})
+        createdClassSections = returnValue
+    } catch (e) {
+        err = e 
+    }
+
+    return {err, createdClassSections}
 }
 
 const ClassSectionHelper = {

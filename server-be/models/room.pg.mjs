@@ -31,7 +31,7 @@ const Room = db.define('rooms', {
     position: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: false,
         validate: {
             notEmpty: true
         }
@@ -39,7 +39,7 @@ const Room = db.define('rooms', {
     capacity: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        unique: false,
         validate: {
             notEmpty: true
         }

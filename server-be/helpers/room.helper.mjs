@@ -61,7 +61,17 @@ const remove = async (id) => {
 }
 
 const createMulti = async (rooms) => {
-    //Implement me
+    let createdRooms = null
+    let err = null
+
+    try {
+        let returnValue = await Room.bulkCreate(rooms, {returning: true})
+        createdRooms = returnValue
+    } catch(error) {
+        err = error
+    }
+
+    return {err, createdRooms}
 }
 
 const RoomHelper = {
