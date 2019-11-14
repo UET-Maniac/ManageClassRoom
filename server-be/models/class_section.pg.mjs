@@ -22,7 +22,7 @@ const ClassSection = db.define('class_sections', {
     name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: false,
         validate: {
             notEmpty: true
         }

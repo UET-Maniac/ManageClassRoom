@@ -23,7 +23,7 @@ Router.group('/room', r => {
     r.get('/rooms', RoomController.getAll)
     r.put('/:id', RoomController.update)
     r.delete('/:id', RoomController.removeByID)
-    // r.post('/import', RoomController.importRooms)
+    r.post('/import', RoomController.importRooms)
 })
 
 Router.group('/class-section', r => {
@@ -31,7 +31,7 @@ Router.group('/class-section', r => {
     r.get('/class-sections', ClassSectionController.getAll)
     r.put('/:id', ClassSectionController.update)
     r.delete('/:id', ClassSectionController.removeByID)
-    // r.post('/import', ClassSectionController.importClassSections)
+    r.post('/import', ClassSectionController.importClassSections)
 })
 
 export default Router
