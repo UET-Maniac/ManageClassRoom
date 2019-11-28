@@ -48,6 +48,7 @@ const update = async (id, data) => {
     }
 }
 
+
 const remove = async (id) => {
     try {
         const classRoom = await Class.findByPk(id)
