@@ -1,4 +1,5 @@
 import Class from '../models/class.pg.mjs'
+import db from '../config/database.mjs'
 
 const create = async (data) => {
     try {
@@ -24,7 +25,7 @@ const create = async (data) => {
 
 const retriveAll = async () => {
     try {
-        const classes = await Class.findll()
+        const classes = await Class.findAll()
         return {classes, err: null}
     } catch (err) {
         return {err, classes: null}
@@ -48,6 +49,7 @@ const update = async (id, data) => {
     }
 }
 
+
 const remove = async (id) => {
     try {
         const classRoom = await Class.findByPk(id)
@@ -65,6 +67,18 @@ const remove = async (id) => {
     }
 }
 
+const getSchedule = async (studentCode, semester) => {
+    try {
+        const classes = await db.query(`SELECT * FROM classes LEFT JOIN class_sections ON trim(both ' ' from class_sections.code) = "classSectionCode" WHERE semester='${semester}' AND '${studentCode}' = ANY (students)`, {raw: true})
+        console.log(classes)
+        // let classes = null
+        return {classes: classes[0], err: null}
+    } catch (err) {
+        return {classes: null, err}
+    }
+}
+
+
 const createMulti = async (classes) => {
     // Implement me
 }
@@ -74,7 +88,8 @@ const ClassHelper = {
     update,
     remove,
     retriveAll,
-    createMulti
+    createMulti,
+    getSchedule,
 }
 
 export default ClassHelper

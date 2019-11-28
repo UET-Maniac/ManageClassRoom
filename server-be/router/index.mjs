@@ -3,6 +3,9 @@ import AccountController from '../controllers/account.controller.mjs'
 import 'express-group-routes'
 import RoomController from '../controllers/room.controller.mjs'
 import ClassSectionController from '../controllers/class_section.controller.mjs'
+import ClassController from '../controllers/class.controller.mjs'
+import SemesterController from '../controllers/semester.controller.mjs'
+import Class from '../models/class.pg.mjs'
 
 
 const Router = express.Router()
@@ -32,6 +35,27 @@ Router.group('/class-section', r => {
     r.put('/:id', ClassSectionController.update)
     r.delete('/:id', ClassSectionController.removeByID)
     r.post('/import', ClassSectionController.importClassSections)
+})
+
+
+Router.group('/class', r => {
+    r.post('/', ClassController.createNewClass)
+    r.get('/', ClassController.getSchedule)
+    r.put('/info/:id', ClassController.updateInfoClass)
+    r.put('/student/:id', ClassController.updateStudentClass)
+    r.delete('/:id', ClassController.removeClass)
+})
+
+Router.group('/schedule', r => {
+    r.post('/', ClassController.getScheduleForUser)
+})
+
+Router.group('/semester', r => {
+    r.post('/', SemesterController.create)
+    r.get('/semesters', SemesterController.getAll)
+    r.put('/:id', SemesterController.update)
+    r.delete('/:id', SemesterController.removeByID)
+
 })
 
 export default Router

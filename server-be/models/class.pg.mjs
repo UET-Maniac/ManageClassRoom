@@ -19,6 +19,7 @@ import db from '../config/database.mjs'
 import Room from './room.pg.mjs'
 import ClassSection from './class_section.pg.mjs'
 import Account from './account.pg.mjs'
+import Semester from './semester.pg.mjs'
 
 const Class = db.define('classes', {
     code: {
@@ -43,6 +44,10 @@ const Class = db.define('classes', {
         unique: false,
         validate: {
             notEmpty: true
+        },
+        references: {
+            model: Semester,
+            key: 'name'
         }
     },
     day: {

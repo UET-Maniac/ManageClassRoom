@@ -18,7 +18,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import TextField from '@material-ui/core/TextField'
 import Chip from '@material-ui/core/Chip';
-import {withStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button} from '@material-ui/core'
+import {withStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button, Paper, Typography} from '@material-ui/core'
 import { lookup } from 'dns';
 
 const tableIcons = {
@@ -45,6 +45,12 @@ const styles = theme => ({
     formControl: {
         margin: theme.spacing(2),
         marginLeft: theme.spacing(10),
+    },
+    hover: {
+        "&:hover": {
+            backgroundColor: 'rgb(7, 177, 77, 0.42)',
+            textDecoration: 'underline',
+        }
     }
 })
 
@@ -72,15 +78,44 @@ class RequestManagerPage extends Component {
          */
 
         const columns = [
-            {title: 'ID', field: 'id', hidden: true},
-            {title: 'Title', field: 'title'},
-            {title: 'From', field: 'createdBy'},
+            {field: 'id', hidden: true},
+            {field: 'title'},
+            {field: 'createdBy'},
         ]
-
+        const data = [{
+            id: 1,
+            title: "One",
+            createdBy: "HoangPhu"
+        },{
+            id: 1,
+            title: "One",
+            createdBy: "HoangPhu"
+        }]
         return (
-            <div>Request Manager Page</div>
+            <Fragment>
+                <Paper className={classes.hover}>
+                <Typography variant="h5" component="h3">
+                    This is a sheet of paper.
+                </Typography>
+                <Typography component="p">
+                    Paper can be used to build surface or other elements for your application.
+                </Typography>
+                </Paper>
+                <Paper className={classes.hover}>
+                <Typography variant="h5" component="h3">
+                    This is a sheet of paper.
+                </Typography>
+                <Typography component="p">
+                    Paper can be used to build surface or other elements for your application.
+                </Typography>
+                </Paper>
+            </Fragment>
         )
     }
 }
 
-export default RequestManagerPage
+RequestManagerPage.propTypes = {
+    classes: PropTypes.object.isRequired
+}
+
+export default withStyles(styles)(RequestManagerPage)
