@@ -115,23 +115,47 @@ const updateStudentClass = (req, res) => {
 
 
 const removeClass = (req, res) => {
-    // Implement me
+    let id = parseInt(req.params.id)
 
-    res.json({
-        success: true,
-        data: undefined,
-        message: "ok"
+    ClassHelper.remove(id).then(result => {
+        if(result.err) {
+            console.log(result)
+            res.json({
+                success: false,
+                data: null,
+                message: "not ok"
+            })
+            return
+        }
+        res.json({
+            success: true,
+            data: null,
+            message: "ok"
+        })
     })
+
 }
 
 const getScheduleForUser = (req, res) => {
-    // Implement me
-
-    res.json({
-        success: true,
-        data: undefined,
-        message: "ok"
+    const payload = req.body
+    
+    ClassHelper.getSchedule(payload.studentCode, payload.semester).then(result => {
+        if(result.err) {
+            console.log(result.err)
+            res.json({
+                success: false,
+                data: null,
+                message: "not ok"
+            })
+            return
+        }
+        res.json({
+            success: true,
+            data: result.classes,
+            message: "ok"
+        })
     })
+
 }
 
 const getSchedule = (req, res) => {

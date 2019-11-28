@@ -5,6 +5,7 @@ import RoomController from '../controllers/room.controller.mjs'
 import ClassSectionController from '../controllers/class_section.controller.mjs'
 import ClassController from '../controllers/class.controller.mjs'
 import SemesterController from '../controllers/semester.controller.mjs'
+import Class from '../models/class.pg.mjs'
 
 
 const Router = express.Router()
@@ -42,6 +43,11 @@ Router.group('/class', r => {
     r.get('/', ClassController.getSchedule)
     r.put('/info/:id', ClassController.updateInfoClass)
     r.put('/student/:id', ClassController.updateStudentClass)
+    r.delete('/:id', ClassController.removeClass)
+})
+
+Router.group('/schedule', r => {
+    r.post('/', ClassController.getScheduleForUser)
 })
 
 Router.group('/semester', r => {
