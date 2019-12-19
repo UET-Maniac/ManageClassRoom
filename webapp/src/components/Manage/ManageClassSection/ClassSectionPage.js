@@ -19,7 +19,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import TextField from '@material-ui/core/TextField'
 import Chip from '@material-ui/core/Chip';
 import {withStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button} from '@material-ui/core'
-
+import {fetchClassSection} from '../../../api/index';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -53,8 +53,16 @@ class ClassSectionPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            classeSections: null,
         }
+    }
+
+    componentDidMount() {
+        fetchClassSection().then(res => {
+            if(res.data.success) {
+                this.setState({classSections: res.data.data})
+            }
+        })
     }
 
     render() {
@@ -66,12 +74,7 @@ class ClassSectionPage extends Component {
         * Name         string
         * CreditNumber number
         */
-        let classSection = [{
-            id: 1,
-            code: "INT3306",
-            name: "Phat trien ung dung web",
-            creditNumber: 3
-        }]
+        const {classSections} = this.state
 
         const columns = [
             {title: 'ID', field: 'id', editable: 'never', hidden: true},
@@ -86,7 +89,7 @@ class ClassSectionPage extends Component {
                     icons={tableIcons}
                     title="Class Section Manager"
                     columns={columns}
-                    data={classSection}
+                    data={classSections === null ? [] : classSections}
                     editable={{
                         onRowAdd: newData => {
                             new Promise(resolve => {

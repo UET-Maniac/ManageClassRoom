@@ -27,15 +27,15 @@ const getAll = (req, res) => {
     RoomHelper.retrieveAll().then(result => {
         if(result.err) {
             console.error(result.err)
-            res.json({
+            res.status(403).json({
                 success: false,
                 data: null,
                 message: "not ok"
             })
             return
         }
-        console.log(result.rooms)
-        res.json({
+        // console.log(result.rooms)
+        res.status(200).json({
             data: result.rooms,
             success: true,
             message: "ok"

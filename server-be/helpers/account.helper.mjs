@@ -1,4 +1,6 @@
 import Account from "../models/account.pg.mjs"
+import bcrypt from 'bcrypt'
+import constant from '../config/constant.mjs'
 
 const create = async (data) => {
     try {
@@ -75,12 +77,29 @@ const createMulti = async (accounts) => {
     return {err, createdAccounts};
 }
 
+const checkAccount = async (account) => {
+    try {
+        let accounts = await Account.findAll({
+            limit: 1,
+            where: {
+                username: account.username,
+                password: account.password
+            }
+        })
+        
+        return accounts[0]
+    } catch(error) {
+        return null
+    }
+}
+
 const AccountHelper = {
     create,
     update,
     remove,
     retrieveAll,
-    createMulti
+    createMulti,
+    checkAccount,
 }
 
 export default AccountHelper

@@ -10,7 +10,6 @@ import fileUpload from 'express-fileupload'
 
 import jwt from 'jsonwebtoken'
 import secret from './config/key.mjs'
-import checkToken from './middleware/authentication.mjs'
 
 
 const app = express()
@@ -36,43 +35,40 @@ app.use(function (req, res, next) {
  */
 app.use('/api/v1', Router)
 
-app.post('/login', (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
-    // For the given username fetch user from DB
-    let mockedUsername = 'admin';
-    let mockedPassword = 'password';
+// app.post('/login', (req, res) => {
+//     let username = req.body.username;
+//     let password = req.body.password;
+//     // For the given username fetch user from DB
+//     let mockedUsername = 'admin';
+//     let mockedPassword = 'password';
 
-    if (username && password) {
-      if (username === mockedUsername && password === mockedPassword) {
-        let token = jwt.sign({username: username},
-          secret,
-          { 
-            expiresIn: '24h' // expires in 24 hours
-          }
-        );
-        // return the JWT token for the future API calls
-        res.json({
-          success: true,
-          message: 'Authentication successful!',
-          token: token
-        });
-      } else {
-        res.status(403).json({
-          success: false,
-          message: 'Incorrect username or password'
-        });
-      }
-    } else {
-      res.status(400).json({
-        success: false,
-        message: 'Authentication failed! Please check the request'
-      });
-    }
-})
-
-app.get('/api/v1/hello', checkToken, (req, res) => res.send("Hello world"))
-
+//     if (username && password) {
+//       if (username === mockedUsername && password === mockedPassword) {
+//         let token = jwt.sign({username: username},
+//           secret,
+//           { 
+//             expiresIn: '24h' // expires in 24 hours
+//           }
+//         );
+//         // return the JWT token for the future API calls
+//         res.json({
+//           success: true,
+//           message: 'Authentication successful!',
+//           token: token
+//         });
+//       } else {
+//         res.status(403).json({
+//           success: false,
+//           message: 'Incorrect username or password'
+//         });
+//       }
+//     } else {
+//       res.status(400).json({
+//         success: false,
+//         message: 'Authentication failed! Please check the request'
+//       });
+//     }
+// })
 
 
 /**

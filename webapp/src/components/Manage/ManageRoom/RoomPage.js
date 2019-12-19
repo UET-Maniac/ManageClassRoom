@@ -16,10 +16,8 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import TextField from '@material-ui/core/TextField'
-import Chip from '@material-ui/core/Chip';
 import {withStyles, FormLabel, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, FormControl, Fab, Button} from '@material-ui/core'
-import { lookup } from 'dns';
+import {fetchRooms, createRoom} from '../../../api/index';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -52,25 +50,29 @@ class RoomPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            rooms: null,
         }
     }
 
+    componentDidMount() {
+        fetchRooms().then(res => {
+            if(res.data.success) {
+                this.setState({rooms: res.data.data})
+            }
+        })
+    }
+
     render() {
-        const {rooms, classes} = this.props
-        // rooms = [{
-        //     code: "PM-201-E3",
-        //     type: "practise",
-        //     position: "Phong 201 toa nh E3",
-        //     capacity: "30"
-        // }]
+        const { classes} = this.props
+        const {rooms} = this.state
+
         const columns = [
             {title: 'ID', field: 'id', editable: 'never', hidden: true},
             {title: 'Code', field: 'code', type: 'string'},
-            {title: 'Position', field: 'Postion', type: 'string'},
+            {title: 'Position', field: 'position', type: 'string'},
             {
                 title: 'Type', field: 'type', type: 'string',
-                lookup: {'practise': 'Practise', 'theory': 'Theory'}
+                lookup: {'practise': 'Thực hành', 'theory': 'Lý thuyết'}
             },
             {title: 'Capacity', field: 'capacity', type: 'string'}
         ]
@@ -81,7 +83,7 @@ class RoomPage extends Component {
                     icons={tableIcons}
                     title="Room Manager"
                     columns={columns}
-                    data={rooms}
+                    data={rooms !== null ? rooms : []}
                     editable={{
                         onRowAdd: newData => {
                             new Promise(resolve => {
