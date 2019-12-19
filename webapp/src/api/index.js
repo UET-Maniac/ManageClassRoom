@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const API_BASE_URL = 'http://localhost:5555/api/v1'
 
+
 const client = axios.create({
     baseURL: API_BASE_URL,
     header: {
@@ -9,12 +10,24 @@ const client = axios.create({
     }
 })
 
+client.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('tokenjwt');
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+});
+
 const clientForm =  axios.create({
     baseURL: API_BASE_URL,
     header: {
         'Content-Type': 'multipart/form-data',
     }
 })
+
+clientForm.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('tokenjwt');
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+});
 
 /**
  * Account api
@@ -98,3 +111,11 @@ export function deleteClassSection(payload) {
 /**
  * Request Form api
  */
+
+
+ /**
+  * Login api
+  */
+ export function login(payload) {
+     return client.post(`/login`, payload)
+ }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,15 +15,18 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
-import { Link, NavLink } from "react-router-dom";
+import { Link} from "react-router-dom";
+import Icon from '@material-ui/core/Icon';
+import { loadCSS } from 'fg-loadcss';
+import { useAuth } from '../../context/auth';
+import { Button } from '@material-ui/core';
 
-
-const drawerWidth = 240;
+const drawerWidth = 220;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -61,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -75,15 +78,31 @@ const useStyles = makeStyles(theme => ({
     }),
     marginLeft: 0,
   },
-  nested: {
-    paddingLeft: theme.spacing(4),
+  linkItem: {
+    textDecoration: 'none',
+    color: "#000000"
   },
+  title: {
+    flexGrow: 1,
+  }
 }));
 
 export default function Layout(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const {setAuthTokens} = useAuth();
+
+  function logOut() {
+    setAuthTokens();
+  }
+
+  React.useEffect(() => {
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
+      document.querySelector('#font-awesome-css'),
+    );
+  }, []);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -92,6 +111,39 @@ export default function Layout(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const menu = [
+    {
+      path: "/",
+      title: "Trang chủ",
+      // classIcon: "fa fa-home"
+    },
+    {
+      path: "/room-manager",
+      title: "Phòng",
+      // classIcon: "fa fa-home"
+    },
+    {
+      path: "/class-section-manager",
+      title: "Học phần",
+      // classIcon: "fa fa-home"
+    },
+    {
+      path: "/class-manager",
+      title: "Lớp học phần",
+      // classIcon: "fa fa-home"
+    },
+    {
+      path: "/request-manager",
+      title: "Yêu cầu mượn phòng",
+      // classIcon: "fa fa-home"
+    },
+    {
+      path: "/account-manager",
+      title: "Tài khoản",
+      // classIcon: "fa fa-home"
+    }
+  ]
 
   return (
     <div className={classes.root}>
@@ -112,9 +164,10 @@ export default function Layout(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.title}>
             Manage Class Room
           </Typography>
+          <Button color="inherit" onClick={logOut}>Logout</Button>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -133,54 +186,18 @@ export default function Layout(props) {
         </div>
         <Divider />
         <List>
-          <NavLink 
-            to='/'
-            activeStyle={{
-              textDecoration: 'none',
-              color: 'blue'
-            }}
-          >
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-          </NavLink>
-          <Link to='/room-manager'>
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Room" />
-            </ListItem>
-          </Link>
-          <Link to='/class-section-manager'>
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Class Section" />
-            </ListItem>
-          </Link>
-          <Link to='/class-manager'>
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Class" />
-            </ListItem>
-          </Link>
-          <Link to='/request-manager'>
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Request" />
-            </ListItem>
-          </Link>
-          <Link to='/account-manager'>
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="Account" />
-            </ListItem>
-          </Link>
-          <Link to='/about'>
-            <ListItem button>
-              <ListItemIcon><MailIcon /></ListItemIcon>
-              <ListItemText primary="About 	&amp; Contact" />
-            </ListItem>
-          </Link>
+          {
+            menu.map((item, index) => (
+              <Fragment key={index} >
+                <Link to={item.path} className={classes.linkItem}>
+                  <ListItem button>
+                    {/* <ListItemIcon><Icon className={item.classIcon} /></ListItemIcon> */}
+                    <ListItemText  primary={item.title}/>
+                  </ListItem>
+                </Link>
+              </Fragment>
+            ))
+          }
         </List>
         <Divider />
       </Drawer>

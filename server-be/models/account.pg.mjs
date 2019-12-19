@@ -61,9 +61,14 @@ const Account = db.define('accounts', {
             return account
         }
     },
-    classMethods: {},
+    classMethods: {
+        hashPassword: (password) => {
+            return bcrypt.hashSync(password, constant.salt);
+        }
+    },
     instanceMethods: {
         validPassword: (password) => {
+            console.log("asdasd")
             return bcrypt.compare(password, this.password)
         }
     }

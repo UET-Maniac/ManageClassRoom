@@ -10,10 +10,18 @@ import ClassPage from './components/Manage/ManagerClass/ClassPage'
 import ClassSectionPage from './components/Manage/ManageClassSection/ClassSectionPage'
 import RoomPage from './components/Manage/ManageRoom/RoomPage'
 import RequestManagerPage from './components/Manage/ManageRequest/RequestManager'
+import {AuthContext} from "./context/auth";
+import PrivateRoute from './components/PrivateRoute';
+import Login from './components/Login/LoginPage';
 
 
 class App extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      authTokens: null,
+    }
+  }
   componentDidMount() {
     this.props.dispatch(fetchAccounts())
   }
@@ -30,16 +38,23 @@ class App extends React.Component {
     this.props.dispatch(updateAccount({id, body}))
   }
 
+  setTokens = (data) => {
+    localStorage.setItem("tokens", JSON.stringify(data))
+    this.setState({authTokens: data})
+  }
+
   render() {
-    console.log(this.props)
-    
+    // console.log(this.state.authTokens)
+    const {authTokens} = this.state
+
     return (
+      <AuthContext.Provider value={{authTokens, setAuthTokens: this.setTokens}}>
       <Router>
         <Layout>
           <div>
             <Switch>
-              <Route path="/" exact component={HomePage} />
-              <Route 
+              <PrivateRoute path="/" exact={true} render={() => <HomePage />} />
+              <PrivateRoute 
                 path="/account-manager" 
                 render={() => <AccountPage
                   accounts={this.props.accounts}
@@ -48,36 +63,38 @@ class App extends React.Component {
                   onUpdateAccount={this.onUpdateAccount}
                 />}
               />
-              <Route 
+              <PrivateRoute 
                 path="/class-manager" 
                 render={() => <ClassPage
                 />}
               />
-              <Route 
+              <PrivateRoute 
                 path="/class-section-manager" 
                 render={() => <ClassSectionPage
                 />}
               />
-              <Route 
+              <PrivateRoute 
                 path="/room-manager" 
                 render={() => <RoomPage
                 />}
               />
-              <Route 
-                path="/request-manager" 
-                render={() => <RequestManagerPage
-                />}
+              <PrivateRoute path="/request-manager" render={() => <RequestManagerPage />} />
+              
+              <Route path="/login" component={Login} />
               />
             </Switch>
           </div>
         </Layout>
       </Router>
+
+      </AuthContext.Provider>
+
     )
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state)
+  // console.log(state)
   return {
     accounts: state.accountReducer.accounts,
     rooms: state.roomReducer.rooms,
